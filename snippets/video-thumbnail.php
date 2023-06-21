@@ -64,9 +64,12 @@
      file_put_contents($current_dir."/".$target_filename, $save_image);
    }
  }
- $final_thumb = $page->image($target_filename)->crop(960, 540);
+ $final_thumb = "";
+ if($page->image($target_filename)){
+  $final_thumb = $page->image($target_filename)->crop(960, 540);
+ }
 
 ?>
 <?php if($final_thumb != ""): ?>
-  <img class="img-fluid video-thumbnail" src="<?= $final_thumb->url(); ?>">
+  <img class="img-fluid video-thumbnail" alt="Video Preview" src="<?= $final_thumb->url(); ?>">
 <?php endif; ?>
