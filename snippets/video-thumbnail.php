@@ -2,13 +2,12 @@
  // we get: $video_url;
  $video = $video_url;
  
- $video = str_replace("src", "data-src", $video); 
  $video = str_replace("www.youtube.com", "www.youtube-nocookie.com", $video);
- $video = str_replace("fullscreen", "fullscreen; autoplay; picture-in-picture; xr-spatial-tracking; clipboard-write", $video);  
  $hoster = ""; 
  $video_thumb = "";
  $hd_thumb = "";
  $sd_thumb = "";
+
  
  if(str_contains($video, "youtu")){
    $hoster = "YouTube";
@@ -51,7 +50,7 @@
  if($video_thumb == ""){
    $video_thumb = $sd_thumb;
  }
- 
+
  if($video_thumb != ""){
    // save thumbnail file to current directory to serve it locally
    $ext = pathinfo($video_thumb, PATHINFO_EXTENSION);
@@ -65,7 +64,7 @@
      file_put_contents($current_dir."/".$target_filename, $save_image);
    }
  }
- $final_thumb = $page->image($target_filename);
+ $final_thumb = $page->image($target_filename)->crop(960, 540);
 
 ?>
 <?php if($final_thumb != ""): ?>
